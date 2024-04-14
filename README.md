@@ -2,4 +2,4 @@
 
 ## Images
 
-![layer_0](./.github/images/layer_0.png)
+![corne](./.github/images/corne.svg)
