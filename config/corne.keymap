@@ -17,6 +17,15 @@
             #binding-cells = <0>;
             bindings = <&kp LEFT_ALT>, <&kp RIGHT_ALT>;
         };
+
+        double_win_key: double_win_key {
+            compatible = "zmk,behavior-tap-dance";
+            label = "DOUBLE_WIN_KEY";
+            #binding-cells = <0>;
+            bindings = <&kp LEFT_WIN>, <&kp LEFT_ALT>;
+
+            tapping-term-ms = <200>;
+        };
     };
 
     keymap {
@@ -45,7 +54,7 @@
             //                    | GUI |     | SPC |   | ENT |     | ALT |
 
             bindings = <
-&kp TAB    &kp N1         &kp N2         &kp N3        &kp N4        &kp N5          &kp N6    &kp N7    &kp N8            &kp N9             &kp N0  &kp BSPC
+&kp TAB    &kp N1         &kp N2         &kp N3        &kp N4        &kp N5          &kp N6    &kp N7    &kp N8            &kp N9             &kp N0  &kp DELETE
 &kp LCTRL  &bt BT_SEL 0   &bt BT_SEL 1   &bt BT_SEL 2  &bt BT_SEL 3  &out OUT_TOG    &kp LEFT  &kp DOWN  &kp UP            &kp RIGHT          &trans  &trans
 &kp LSHFT  &bt BT_DISC 0  &bt BT_DISC 1  &trans        &trans        &bt BT_CLR      &trans    &trans    &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &trans  &trans
                                          &kp LGUI      &trans        &kp SPACE       &kp RET   &trans    &double_tap_alt
