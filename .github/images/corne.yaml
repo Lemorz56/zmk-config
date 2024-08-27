@@ -14,7 +14,7 @@ layers:
   - '8'
   - '9'
   - '0'
-  - BSPC
+  - DELETE
   - LCTRL
   - {t: BT, h: '0'}
   - {t: BT, h: '1'}
