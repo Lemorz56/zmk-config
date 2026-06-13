@@ -35,9 +35,10 @@ jobs:
           echo "tag=firmware-${SHORT}-${DATE}" >> $GITHUB_OUTPUT
 
       - name: Create GitHub Release and upload firmware
-        uses: ncipollo/release-action@v1
+        uses: softprops/action-gh-release@v1
         with:
-          tag: ${{ steps.tag.outputs.tag }}
+          tag_name: ${{ steps.tag.outputs.tag }}
           name: ${{ steps.tag.outputs.tag }}
-          makeLatest: true
           files: artifact/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
