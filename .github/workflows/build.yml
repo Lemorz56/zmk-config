@@ -1,5 +1,43 @@
 on: [push, pull_request, workflow_dispatch]
 
+permissions:
+  contents: write
+  packages: write
+
 jobs:
   build:
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3
+    with:
+      archive_name: firmware
+
+  release:
+    name: Create GitHub release with firmware
+    runs-on: ubuntu-latest
+    needs: build
+    if: ${{ needs.build.result == 'success' }}
+    steps:
+      - name: Download firmware artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: firmware
+          path: artifact
+
+      - name: List downloaded files
+        run: |
+          echo "Contents of artifact/"
+          ls -la artifact || true
+
+      - name: Prepare release tag
+        id: tag
+        run: |
+          SHORT=$(echo "${GITHUB_SHA}" | cut -c1-7)
+          DATE=$(date +'%y-%m-%d')
+          echo "tag=firmware-${SHORT}-${DATE}" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release and upload firmware
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag.outputs.tag }}
+          name: ${{ steps.tag.outputs.tag }}
+          makeLatest: true
+          files: artifact/*
